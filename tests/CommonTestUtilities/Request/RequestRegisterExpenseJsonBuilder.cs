@@ -1,27 +1,22 @@
 ﻿using Bogus;
 using CashFlow.Communication.Enums;
 using CashFlow.Communication.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonTestUtilities.Request
 {
     public class RequestRegisterExpenseJsonBuilder
     {
-        public RequestRegisterExpenseJson Build()
+        public static RequestRegisterExpenseJson Build()
         {
-            var faker = new Faker();
+            /*var faker = new Faker();
 
             var request = new RequestRegisterExpenseJson
             {
                 Title = faker.Commerce.Product(),
                 Date = faker.Date.Past(),
-            };
+            };*/
 
-            new Faker<RequestRegisterExpenseJson>()
+            return new Faker<RequestRegisterExpenseJson>()
                 .RuleFor(r => r.Title, faker => faker.Commerce.ProductName())
                 .RuleFor(r => r.Description, faker => faker.Commerce.ProductDescription())
                 .RuleFor(r => r.Date, faker => faker.Date.Past())

@@ -22,10 +22,12 @@ namespace CashFlow.Api.Filters
         private void HandleProjectExcption(ExceptionContext context) {
             if(context.Exception is ErrorOnValidationException)
             {
-                var ex = (ErrorOnValidationException)context.Exception;
+                //var ex = context.Exception as ErrorOnValidationException; caso não seja, retorna nullo
+                var ex = (ErrorOnValidationException)context.Exception; // caso não fosse retornaria erro
 
                 var errorResponse = new ResponseErrorJson(ex.Erros);
 
+                //
                 context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Result = new BadRequestObjectResult(errorResponse);
             } else
@@ -41,6 +43,8 @@ namespace CashFlow.Api.Filters
         {
             var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
 
+
+            // -> no controller return StatusCode(StatusCodes.Status500InternalServerError, msg)
             context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Result = new ObjectResult(errorResponse);
         }
